@@ -53,6 +53,9 @@ export function joinTerms (list: string[], keyword: 'and' | 'or' = 'and') {
 export function durationToSpeech (duration: number) {
     const i18n = i18nFactory.get()
 
+    if(duration < 0)
+        duration = 0
+
     if(duration < 1000) {
         // ms
         return duration + ' ' + i18n('time.millisecond', { count: duration })

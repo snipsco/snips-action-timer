@@ -17,7 +17,7 @@ export const handlerWrapper = <MessageType extends HandlerMessages = IntentMessa
         try {
             // Check the message thresholds
             if(
-                !intentMessageGuard(message) || (
+                intentMessageGuard(message) && (
                     message.intent.confidenceScore < (nested ? INTENT_FILTER_THRESHOLD: INTENT_THRESHOLD) ||
                     getAsrConfidence(message) < ASR_THRESHOLD
                 )

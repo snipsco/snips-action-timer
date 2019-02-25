@@ -53,7 +53,8 @@
     "timerIsUp": {
         "announce": "Your timer is up.",
         "announce_name": "Your timer {{ name }} is up.",
-        "addTime": "Okay, adding {{ time }} to your timer."
+        "addTime": "Okay, adding {{ time }} to your timer.",
+        "addTime_name": "Okay, adding {{ time }} to your {{ name }} timer."
     },
     "time": {
         "millisecond": "millisecond",

@@ -49,7 +49,7 @@ export const getRemainingTimeHandler: Handler = async function (msg, flow, herme
             i18n('getRemainingTime.timerRecap', {
                 name: timer.name,
                 duration: durationToSpeech(timer.remaining),
-                ontext: timer.name ? name : null
+                context: timer.name ? name : null
             })
         ))
 

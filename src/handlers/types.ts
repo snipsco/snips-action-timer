@@ -8,5 +8,5 @@ export type Handler<MessageType extends HandlerMessages = IntentMessage> = (
 ) => FlowActionReturn
 
 export function intentMessageGuard(msg: HandlerMessages): msg is IntentMessage {
-    return !!(msg as any).intent
+    return !!msg['intent']
 }

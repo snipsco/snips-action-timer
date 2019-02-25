@@ -19,7 +19,7 @@ function initTimer(duration: number, onExpiration: (name: string, duration?: num
         pause() {
             clearTimeout(this.timeout)
             this.paused = true
-            this.duration = (this.start + this.duration) - Date.now()
+            this.duration = Math.trunc(((this.start + this.duration) - Date.now()) / 1000) * 1000
         },
         paused: false,
         resume() {

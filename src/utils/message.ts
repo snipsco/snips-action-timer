@@ -46,7 +46,7 @@ export function getDurationSlotValueInMs(slot: DurationSlot) {
 
     const duration = slot.value
     const baseTime = dayjs().valueOf()
-    return (
+    return Math.max(0,
         dayjs(baseTime)
             .add(duration.years, 'year')
             .add(duration.quarters * 3, 'month')
