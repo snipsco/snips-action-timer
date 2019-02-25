@@ -1,0 +1,85 @@
+{
+    "error": {
+        "mqtt": "Sorry, there was a communication error with the Snips platform",
+        "config": "Sorry, there was an error with your config file.",
+        "locale": "Sorry, there was an error with your language settings.",
+        "intentNotRecognized": "Sorry, I did not understand your request.",
+        "APIResponse": "Sorry, there was an issue with the service provider.",
+        "APIRequest": "Sorry, the service provider is unreachable.",
+        "unspecific": "Oops, something went wrong.",
+        "timerNameExists": "Sorry, ten timers have already been created with that name."
+    },
+    "defaultName": "Timer",
+    "defaultTimerDescription": "a {{ duration }} timer",
+    "namedTimerDescription": "a {{ duration }} timer called {{ name }}",
+    "noTimers": "Seems like you have no active timer for the moment. Would you like to create one?",
+    "notFound": "Sorry but I don't have an existing timer for the name you provided.",
+    "setTimer": {
+        "ask": "What timer would you like to create and for how long?",
+        "created": "Okay, setting a timer for {{ duration }}.",
+        "created_name": "Okay, starting timer {{ name }} for {{ duration }}.",
+        "askDuration": "For how long should the timer run?"
+    },
+    "getRemainingTime": {
+        "found": "The timer has {{ duration }} remaining.",
+        "found_name": "The timer called {{ name }} has {{ duration }} remaining.",
+        "singleTimer": "I've found one timer, its remaining time is {{ duration }}.",
+        "singleTimer_name": "I've found one timer called {{ name }}, its remaining time is {{ duration }}.",
+        "multipleTimers": "I've found {{ count }} timers. {{- timersRecap }}.",
+        "timerRecap": "a timer that has {{ duration }} left",
+        "timerRecap_name": "{{ name }} has {{ duration }} left"
+    },
+    "cancelTimer": {
+        "canceled": "Sure, the timer is now canceled.",
+        "canceled_name": "Sure, the timer {{ name }} is now canceled.",
+        "canceled_all": "Sure, all your timers are now canceled.",
+        "singleTimer": "I've found one timer, would you like to cancel it?",
+        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to cancel, {{- timerNamesOr }}?"
+    },
+    "pauseTimer": {
+        "paused": "Okay, the timer is now paused.",
+        "paused_name": "Okay, the timer {{ name }} is now paused.",
+        "paused_all": "Sure, all your timers are now paused.",
+        "singleTimer": "I've found one timer, would you like to pause it?",
+        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to pause, {{- timerNamesOr }}?"
+    },
+    "resumeTimer": {
+        "resumed": "Okay, the timer is now resumed.",
+        "resumed_name": "Okay, the timer {{ name }} is now resumed.",
+        "resumed_all": "Sure, all your timers are now resumed.",
+        "singleTimer": "I've found one timer, would you like to resume it?",
+        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to resume, {{- timerNamesOr }}?"
+    },
+    "timerIsUp": {
+        "announce": "Your timer is up.",
+        "announce_name": "Your timer {{ name }} is up.",
+        "addTime": "Okay, adding {{ time }} to your timer."
+    },
+    "time": {
+        "millisecond": "millisecond",
+        "millisecond_plural": "milliseconds",
+        "second": "second",
+        "second_plural": "seconds",
+        "minute": "minute",
+        "minute_plural": "minutes",
+        "hour": "hour",
+        "hour_plural": "hours",
+        "day": "day",
+        "day_plural": "days"
+    },
+    "joins": {
+        "andSomething": "and {{- something }}",
+        "orSomething": "or {{- something }}"
+    },
+    "numbers": {
+        "1": "one",
+        "2": "two",
+        "3": "three",
+        "4": "four",
+        "5": "five",
+        "6": "six",
+        "7": "seven",
+        "8": "eight",
+        "9": "nine"
+    }
+}
