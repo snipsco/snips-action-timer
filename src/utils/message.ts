@@ -46,10 +46,10 @@ export function getDurationSlotValueInMs(slot: DurationSlot) {
 
     const duration = slot.value
     const baseTime = dayjs().valueOf()
-    return Math.max(0,
+    const millisecondsDuration = Math.max(0,
         dayjs(baseTime)
             .add(duration.years, 'year')
-            .add(duration.quarters * 3, 'month')
+            .add(duration.quarters * 3 + duration.months, 'month')
             .add(duration.weeks * 7, 'day')
             .add(duration.days, 'day')
             .add(duration.hours, 'hour')
@@ -57,4 +57,8 @@ export function getDurationSlotValueInMs(slot: DurationSlot) {
             .add(duration.seconds, 'second')
             .valueOf() - baseTime
     )
+
+    if(2147483647 < millisecondsDuration) {
+        throw new Error('durationTooLong')
+    }
 }

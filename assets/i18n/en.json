@@ -7,7 +7,8 @@
         "APIResponse": "Sorry, there was an issue with the service provider.",
         "APIRequest": "Sorry, the service provider is unreachable.",
         "unspecific": "Oops, something went wrong.",
-        "timerNameExists": "Sorry, ten timers have already been created with that name."
+        "timerNameExists": "Sorry, ten timers have already been created with that name.",
+        "durationTooLong": "Sorry, but the delay you specified is too long."
     },
     "defaultName": "Timer",
     "defaultTimerDescription": "a {{ duration }} timer",
