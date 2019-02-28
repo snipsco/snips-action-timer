@@ -5,13 +5,13 @@ const timers: Timer[] = []
 
 function initTimer(duration: number, onExpiration: (name: string, duration?: number) => void, name: string) {
     const onTimeout = (duration: number) => () => {
-        const index = timers.findIndex(timer => timer.name === name && timer.duration === duration)
+        const index = timers.findIndex(t => t === timer)
         if(index >= 0)
             timers.splice(index, 1)
         onExpiration(name, duration)
     }
 
-    return {
+    const timer = {
         name,
         start: Date.now(),
         duration,
@@ -30,6 +30,7 @@ function initTimer(duration: number, onExpiration: (name: string, duration?: num
             this.timeout = setTimeout(onTimeout(this.duration), this.duration)
         }
     }
+    return timer
 }
 
 function getTimer(name: string, duration?: number) {

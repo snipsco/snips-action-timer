@@ -61,4 +61,6 @@ export function getDurationSlotValueInMs(slot: DurationSlot) {
     if(2147483647 < millisecondsDuration) {
         throw new Error('durationTooLong')
     }
+
+    return millisecondsDuration
 }
