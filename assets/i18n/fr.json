@@ -4,8 +4,8 @@
         "config": "Désolé, une erreur s'est produite avec votre fichier de configuration.",
         "locale": "Désolé, une erreur s'est produite avec vos paramètres de localisation.",
         "intentNotRecognized": "Désolé, je n'ai pas compris votre requête.",
-        "APIResponse": "Désolé, une erreur s'est produite avec le service de météo.",
-        "APIRequest": "Désolé, le service de météo est injoignable.",
+        "APIResponse": "Désolé, une erreur s'est produite avec le service ??????.",
+        "APIRequest": "Désolé, le service ?????? est injoignable.",
         "unspecific": "Oups, quelque chose s'est mal passé.",
         "timerNameExists": "Désolé, il y déjà dix minuteurs qui ont été crées avec ce nom.",
         "durationTooLong": "Désolé, mais le délai de déclenchement est bien trop long."
@@ -27,8 +27,8 @@
         "singleTimer": "J'ai trouvé un minuteur qui finit dans {{ duration }}.",
         "singleTimer_name": "J'ai trouvé un minuteur appelé {{ name }} qui finit dans {{ duration }}.",
         "multipleTimers": "Il existe {{ count }} minuteurs. {{- timersRecap }}.",
-        "timerRecap": "{{ name }} finit dans {{ duration }}",
-        "timerRecap_name": "un minuteur qui finit dans {{ duration }}"
+        "timerRecap": "un minuteur qui finit dans {{ duration }}",
+        "timerRecap_name": "{{ name }} finit dans {{ duration }}"
     },
     "cancelTimer": {
         "canceled": "Le minuteur est maintenant annulé.",
@@ -54,7 +54,8 @@
     "timerIsUp": {
         "announce":  "Votre minuteur est terminé.",
         "announce_name":  "Votre minuteur {{ name }} est terminé.",
-        "addTime": "Ok, je rajoute {{ time }} à votre minuteur."
+        "addTime": "Ok, je rajoute {{ time }} à votre minuteur.",
+        "addTime_name": "Ok, je rajoute {{ time }} à votre minuteur{{ name }}."
     },
     "time": {
         "millisecond": "milliseconde",
@@ -69,7 +70,8 @@
         "day_plural": "jours"
     },
     "joins": {
-        "andSomething": "et {{- something }}"
+        "andSomething": "et {{- something }}",
+        "orSomething": "ou {{- something }}"
     },
     "numbers": {
         "1": "un",
