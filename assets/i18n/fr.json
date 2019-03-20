@@ -4,11 +4,9 @@
         "config": "Désolé, une erreur s'est produite avec votre fichier de configuration.",
         "locale": "Désolé, une erreur s'est produite avec vos paramètres de localisation.",
         "intentNotRecognized": "Désolé, je n'ai pas compris votre requête.",
-        "APIResponse": "Désolé, une erreur s'est produite avec le service ??????.",
-        "APIRequest": "Désolé, le service ?????? est injoignable.",
         "unspecific": "Oups, quelque chose s'est mal passé.",
-        "timerNameExists": "Désolé, il y déjà dix minuteurs qui ont été crées avec ce nom.",
-        "durationTooLong": "Désolé, mais le délai de déclenchement est bien trop long."
+        "timerNameExists": "Désolé, il y déjà dix minuteurs qui ont été créés avec ce nom.",
+        "durationTooLong": "Désolé, mais le délai de déclenchement est trop long."
     },
     "defaultName": "Minuteur",
     "defaultTimerDescription": "un minuteur de {{ duration }}",
