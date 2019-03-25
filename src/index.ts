@@ -1,7 +1,11 @@
+import fs from 'fs'
+import path from 'path'
 import { withHermes } from 'hermes-javascript'
 import bootstrap from './bootstrap'
 import handlers from './handlers'
 import { logger, errorMessage } from './utils'
+
+const alarmWav = fs.readFileSync(path.resolve(__dirname, '../assets/alarm.wav'))
 
 // Initialize hermes
 export default function ({
@@ -15,6 +19,14 @@ export default function ({
                 await bootstrap(bootstrapOptions)
 
                 const dialog = hermes.dialog()
+                const tts = hermes.tts()
+
+                // Publish the alarm sound.
+                tts.publish('register_sound', {
+                    soundId: 'timer.alarm',
+                    wavSound: alarmWav.toString('base64'),
+                    wavSoundLen: alarmWav.length
+                })
 
                 dialog.flows([
                     {

@@ -35,21 +35,21 @@
         "canceled_name": "Sure, the timer {{ name }} is now canceled.",
         "canceled_all": "Sure, all your timers are now canceled.",
         "singleTimer": "I've found one timer, would you like to cancel it?",
-        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to cancel, {{- timerNamesOr }}?"
+        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to cancel?"
     },
     "pauseTimer": {
         "paused": "Okay, the timer is now paused.",
         "paused_name": "Okay, the timer {{ name }} is now paused.",
         "paused_all": "Sure, all your timers are now paused.",
         "singleTimer": "I've found one timer, would you like to pause it?",
-        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to pause, {{- timerNamesOr }}?"
+        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to pause?"
     },
     "resumeTimer": {
         "resumed": "Okay, the timer is now resumed.",
         "resumed_name": "Okay, the timer {{ name }} is now resumed.",
         "resumed_all": "Sure, all your timers are now resumed.",
         "singleTimer": "I've found one timer, would you like to resume it?",
-        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to resume, {{- timerNamesOr }}?"
+        "multipleTimers": "I've found {{ count }} timers. {{- timerNamesAnd }}. Which one would you like to resume?"
     },
     "timerIsUp": {
         "announce": "Your timer is up.",

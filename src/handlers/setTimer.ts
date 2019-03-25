@@ -1,7 +1,6 @@
-import fs from 'fs'
-import path from 'path'
+
 import uuid from 'uuid/v4'
-import { Dialog, Hermes, Audio, IntentNotRecognizedMessage, IntentMessage } from 'hermes-javascript'
+import { Dialog, Hermes, IntentNotRecognizedMessage, IntentMessage } from 'hermes-javascript'
 import { getSlotsByName, getDurationSlotValueInMs, logger, CustomSlot, DurationSlot } from '../utils'
 import { store } from '../store'
 import { i18nFactory } from '../factories'
@@ -10,21 +9,9 @@ import { dialogueRoundWrapper } from './wrappers'
 import { Handler } from './types'
 import { Timer } from '../store/types'
 
-const alarmWav = fs.readFileSync(path.resolve(__dirname, '../../assets/alarm.wav'))
-
-const playAlarmSound = (audio: Audio, siteId: string) => {
-    audio.publish('play_audio', {
-        id: '0',
-        siteId,
-        wavBytes: alarmWav.toString('base64'),
-        wavBytesLen:  alarmWav.length
-    })
-}
-
 export const setTimerHandler: Handler = async function (msg, flow, hermes: Hermes, { providedName = null } = {}) {
     const i18n = i18nFactory.get()
     const dialog = hermes.dialog()
-    const audio = hermes.audio()
 
     const siteId = msg.siteId
 
@@ -41,7 +28,7 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
         // Duration slot was not provided - loop once to get it
         flow.continue('snips-assistant:SetTimer', dialogueRoundWrapper((msg, flow) =>
             setTimerHandler(msg, flow, hermes, { providedName: name })
-        ))
+        ), { slotFiller: 'duration' })
         return i18n('setTimer.askDuration')
     }
 
@@ -55,7 +42,7 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
         dialog.publish('start_session', {
             init: {
                 type: Dialog.enums.initType.action,
-                text: i18n('timerIsUp.announce', {
+                text: '[[sound:timer.alarm]] ' + i18n('timerIsUp.announce', {
                     name: timer.name,
                     context: hasDefaultName(timer.name) ? null : 'name'
                 }),
@@ -72,9 +59,6 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
         })
 
         const sessionHandler = dialogueRoundWrapper((_: IntentMessage | IntentNotRecognizedMessage, flow) => {
-            // Play the alarm sound
-            playAlarmSound(audio, siteId)
-
             flow.continue('snips-assistant:AddTime', (msg, flow) => {
                 // Create the timer again with the updated duration
                 const durationSlot: DurationSlot = getSlotsByName(msg, 'duration', { onlyMostConfident: true })
@@ -93,7 +77,10 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
             flow.notRecognized(sessionHandler)
 
             // Speak
-            return i18n('timerIsUp.announce', { name: timer.name, context: hasDefaultName(timer.name) ? null : 'name' })
+            return (
+                '[[sound:timer.alarm]] ' +
+                i18n('timerIsUp.announce', { name: timer.name, context: hasDefaultName(timer.name) ? null : 'name' })
+            )
         })
         dialog.sessionFlow(messageId, sessionHandler)
     }
