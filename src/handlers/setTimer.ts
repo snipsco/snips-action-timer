@@ -26,9 +26,9 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
 
     if(duration === null || duration === undefined) {
         // Duration slot was not provided - loop once to get it
-        flow.continue('snips-assistant:SetTimer', dialogueRoundWrapper((msg, flow) =>
+        flow.continue('snips-assistant:ElicitTimerDuration', dialogueRoundWrapper((msg, flow) =>
             setTimerHandler(msg, flow, hermes, { providedName: name })
-        ), { slotFiller: 'duration' })
+        ))
         return i18n('setTimer.askDuration')
     }
 
