@@ -1,5 +1,5 @@
 # snips-action-timer
-#### Snips action code for the Timer app.
+#### Snips action code for the Timer app
 
 ## Setup
 
@@ -23,12 +23,12 @@ npm run dev
 # 1) Lint, transpile and test.
 npm start
 # 2) Run the action.
-node action-snips.js
+node action-timer.js
 ```
 
 ## Debug
 
-In the `action-snips.js` file:
+In the `action-timer.js` file:
 
 ```js
 // Uncomment this line to print everything
