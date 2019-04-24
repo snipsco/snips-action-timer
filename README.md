@@ -1,5 +1,6 @@
 # snips-action-timer
-#### Snips action code for the Timer app
+
+Snips action code for the Timer app
 
 ## Setup
 
@@ -7,6 +8,10 @@
 # Install the dependencies, builds the action and creates the config.ini file.
 sh setup.sh
 ```
+
+Don't forget to edit the `config.ini` file.
+
+An assistant containing the intents listed below must be installed on your system. Deploy it following [these instructions](https://docs.snips.ai/articles/console/actions/deploy-your-assistant).
 
 ## Run
 
