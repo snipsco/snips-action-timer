@@ -1,25 +1,21 @@
+import { i18n, logger, message, Handler }  from 'snips-toolkit'
+import { Hermes } from 'hermes-javascript'
 import {
-    logger,
-    getSlotsByName,
     getDurationSlotValueInMs,
     hasDefaultName,
     timerNamesToSpeech,
     CustomSlot,
     DurationSlot
 } from '../utils'
-import { i18nFactory } from '../factories'
 import { store } from '../store'
-import { Handler } from './types'
 import { createTimerFallback } from './createTimerFallback'
 
-export const resumeTimerHandler: Handler = async function (msg, flow, hermes) {
-    const i18n = i18nFactory.get()
-
-    const nameSlot: CustomSlot = getSlotsByName(msg, 'timer_name', { onlyMostConfident: true })
+export const resumeTimerHandler: Handler = async function (msg, flow, hermes: Hermes) {
+    const nameSlot: CustomSlot = message.getSlotsByName(msg, 'timer_name', { onlyMostConfident: true })
     const name = nameSlot && nameSlot.value.value
-    const durationSlot: DurationSlot = getSlotsByName(msg, 'duration', { onlyMostConfident: true })
+    const durationSlot: DurationSlot = message.getSlotsByName(msg, 'duration', { onlyMostConfident: true })
     const duration = durationSlot && getDurationSlotValueInMs(durationSlot)
-    const allTimersSlot = getSlotsByName(msg, 'all_timers', { onlyMostConfident: true })
+    const allTimersSlot = message.getSlotsByName(msg, 'all_timers', { onlyMostConfident: true })
 
     logger.debug('name %s', name)
     logger.debug('duration %d', duration)
@@ -40,19 +36,19 @@ export const resumeTimerHandler: Handler = async function (msg, flow, hermes) {
                 store.resumeTimer(timer.name, timer.duration)
             }
         })
-        return i18n('resumeTimer.resumed', { context: 'all' })
+        return i18n.translate('resumeTimer.resumed', { context: 'all' })
     }
 
     if(store.resumeTimer(name, duration)) {
         flow.end()
-        return i18n('resumeTimer.resumed', { name, context: name ? 'name' : null })
+        return i18n.translate('resumeTimer.resumed', { name, context: name ? 'name' : null })
     }
 
     if(timers.length === 1) {
         if(!name) {
             flow.end()
             timers[0].resume()
-            return i18n('resumeTimer.resumed', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
+            return i18n.translate('resumeTimer.resumed', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
         }
 
         flow.continue('snips-assistant:No', (_, flow) => {
@@ -61,27 +57,27 @@ export const resumeTimerHandler: Handler = async function (msg, flow, hermes) {
         flow.continue('snips-assistant:Yes', (_, flow) => {
             flow.end()
             timers[0].resume()
-            return i18n('resumeTimer.resumed', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
+            return i18n.translate('resumeTimer.resumed', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
         })
 
-        return i18n('resumeTimer.singleTimer', {
+        return i18n.translate('resumeTimer.singleTimer', {
             name: timers[0].name
         })
     } else {
         flow.continue('snips-assistant:ResumeTimer', (msg, flow) => {
-            const nameSlot: CustomSlot = getSlotsByName(msg, 'timer_name', { onlyMostConfident: true })
+            const nameSlot: CustomSlot = message.getSlotsByName(msg, 'timer_name', { onlyMostConfident: true })
             const name = nameSlot && nameSlot.value.value
-            const durationSlot: DurationSlot = getSlotsByName(msg, 'duration', { onlyMostConfident: true })
+            const durationSlot: DurationSlot = message.getSlotsByName(msg, 'duration', { onlyMostConfident: true })
             const duration = durationSlot && getDurationSlotValueInMs(durationSlot)
             const success = (name || duration) && store.resumeTimer(name, duration)
             flow.end()
             if(success) {
-                return i18n('resumeTimer.resumed')
+                return i18n.translate('resumeTimer.resumed')
             }
-            return i18n('notFound')
+            return i18n.translate('notFound')
         })
 
-        return i18n('resumeTimer.multipleTimers', {
+        return i18n.translate('resumeTimer.multipleTimers', {
             count: timers.length,
             timerNamesAnd: timerNamesToSpeech(timers),
             timerNamesOr: timerNamesToSpeech(timers, 'or')

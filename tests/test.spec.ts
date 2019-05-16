@@ -1,15 +1,12 @@
-import { bootstrap } from './helpers/setup'
-import Session from './helpers/session'
-import { getMessageKey, getMessageOptions } from './helpers/tools'
+import { Test } from 'snips-toolkit'
 import {
     createTimerSlot,
     createDurationSlot,
     createAllTimersSlot
 } from './utils'
-import { store } from '../dist/store'
+import { store } from '../dist'
 
-// Bootstrap tests
-bootstrap()
+const { Session, Tools: { getMessageKey, getMessageOptions } } = Test
 
 // i18n output is mocked when running the tests.
 const DEFAULT_NAME = '{"key":"defaultName"}'
@@ -62,6 +59,8 @@ describe('Timer app', () => {
             input: 'What is the status of my timers?'
         })
         const message = await session.end()
+        if(!message.text)
+            throw new Error('end session message.text is empty')
         const { key, options } = JSON.parse(message.text)
         expect(key).toBe('getRemainingTime.multipleTimers')
         expect(options.count).toBe(2)

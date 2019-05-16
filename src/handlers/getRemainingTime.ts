@@ -1,6 +1,5 @@
+import { i18n, logger, message, Handler }  from 'snips-toolkit'
 import {
-    logger,
-    getSlotsByName,
     getDurationSlotValueInMs,
     durationToSpeech,
     hasDefaultName,
@@ -8,14 +7,12 @@ import {
     CustomSlot,
     DurationSlot
 } from '../utils'
-import { i18nFactory } from '../factories'
 import { store } from '../store'
 import { createTimerFallback } from './createTimerFallback'
-import { Handler } from './types'
+
+const { getSlotsByName } = message
 
 export const getRemainingTimeHandler: Handler = async function (msg, flow, hermes) {
-    const i18n = i18nFactory.get()
-
     const nameSlot: CustomSlot = getSlotsByName(msg, 'timer_name', { onlyMostConfident: true })
     const name = nameSlot && nameSlot.value.value
     const durationSlot: DurationSlot = getSlotsByName(msg, 'duration', { onlyMostConfident: true })
@@ -28,7 +25,7 @@ export const getRemainingTimeHandler: Handler = async function (msg, flow, herme
 
     if(!(activeTimers instanceof Array)) {
         flow.end()
-        return i18n('getRemainingTime.found', {
+        return i18n.translate('getRemainingTime.found', {
             name,
             duration: durationToSpeech(activeTimers.remaining),
             context: name ? 'name' : null
@@ -38,7 +35,7 @@ export const getRemainingTimeHandler: Handler = async function (msg, flow, herme
     } else if(activeTimers.length === 1) {
         // Found a single timer
         flow.end()
-        return i18n('getRemainingTime.singleTimer', {
+        return i18n.translate('getRemainingTime.singleTimer', {
             name: activeTimers[0].name,
             duration: durationToSpeech(activeTimers[0].remaining),
             context: hasDefaultName(activeTimers[0].name) ? null : 'name'
@@ -46,7 +43,7 @@ export const getRemainingTimeHandler: Handler = async function (msg, flow, herme
     } else {
         // Found multiple timers
         const timersRecap = activeTimers.map(timer => (
-            i18n('getRemainingTime.timerRecap', {
+            i18n.translate('getRemainingTime.timerRecap', {
                 name: timer.name,
                 duration: durationToSpeech(timer.remaining),
                 context: timer.name ? name : null
@@ -54,7 +51,7 @@ export const getRemainingTimeHandler: Handler = async function (msg, flow, herme
         ))
 
         flow.end()
-        return i18n('getRemainingTime.multipleTimers', {
+        return i18n.translate('getRemainingTime.multipleTimers', {
             count: activeTimers.length,
             timersRecap: joinTerms(timersRecap)
         })

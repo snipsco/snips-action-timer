@@ -1,10 +1,9 @@
-import { i18nFactory } from '../factories'
+import { i18n } from 'snips-toolkit'
+import { Hermes } from 'hermes-javascript'
+import { FlowContinuation } from 'hermes-javascript/types'
 import { setTimerHandler } from './setTimer'
-import { Hermes, FlowContinuation } from 'hermes-javascript'
 
 export const createTimerFallback = function(flow: FlowContinuation, hermes: Hermes) {
-    const i18n = i18nFactory.get()
-
     flow.continue('snips-assistant:No', (_, flow) => {
         flow.end()
     })
@@ -16,8 +15,8 @@ export const createTimerFallback = function(flow: FlowContinuation, hermes: Herm
     })
     flow.continue('snips-assistant:Yes', (_, flow) => {
         flow.continue('snips-assistant:SetTimer', (msg, flow) => setTimerHandler(msg, flow, hermes))
-        return i18n('setTimer.ask')
+        return i18n.translate('setTimer.ask')
     })
 
-    return i18n('noTimers')
+    return i18n.translate('noTimers')
 }

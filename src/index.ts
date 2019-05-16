@@ -1,67 +1,68 @@
 import fs from 'fs'
 import path from 'path'
-import { withHermes } from 'hermes-javascript'
-import bootstrap from './bootstrap'
+import { Hermes, Done } from 'hermes-javascript'
+import { ASSETS_PATH } from './constants'
+import { config, i18n, logger } from 'snips-toolkit'
 import handlers from './handlers'
-import { logger, errorMessage } from './utils'
 
-const alarmWav = fs.readFileSync(path.resolve(__dirname, '../assets/alarm.wav'))
+export * from './store'
 
-// Initialize hermes
-export default function ({
-    hermesOptions = {},
-    bootstrapOptions = {}
-} = {}) : Promise<() => void>{
-    return new Promise((resolve, reject) => {
-        withHermes(async (hermes, done) => {
-            try {
-                // Bootstrap config, locale, i18n…
-                await bootstrap(bootstrapOptions)
+// Enables deep printing of objects.
+process.env.DEBUG_DEPTH = undefined
+// Replace 'error' with '*' to log everything
+logger.enable('error')
 
-                const dialog = hermes.dialog()
-                const tts = hermes.tts()
+export default async function ({
+    hermes,
+    done
+}: {
+    hermes: Hermes,
+    done: Done
+}) {
+    try {
+        const alarmWav = fs.readFileSync(path.resolve(ASSETS_PATH, 'alarm.wav'))
 
-                // Publish the alarm sound.
-                tts.publish('register_sound', {
-                    soundId: 'timer.alarm',
-                    wavSound: alarmWav.toString('base64'),
-                    wavSoundLen: alarmWav.length
-                })
+        config.init()
+        await i18n.init(config.get().locale)
 
-                dialog.flows([
-                    {
-                        intent: 'snips-assistant:SetTimer',
-                        action: (msg, flow) => handlers.setTimer(msg, flow, hermes)
-                    },
-                    {
-                        intent: 'snips-assistant:GetRemainingTime',
-                        action: (msg, flow) => handlers.getRemainingTime(msg, flow, hermes)
-                    },
-                    {
-                        intent: 'snips-assistant:CancelTimer',
-                        action: (msg, flow) => handlers.cancelTimer(msg, flow, hermes)
-                    },
-                    {
-                        intent: 'snips-assistant:PauseTimer',
-                        action: (msg, flow) => handlers.pauseTimer(msg, flow, hermes)
-                    },
-                    {
-                        intent: 'snips-assistant:ResumeTimer',
-                        action: (msg, flow) => handlers.resumeTimer(msg, flow, hermes)
-                    }
-                ])
+        const dialog = hermes.dialog()
+        const tts = hermes.tts()
 
-                resolve(done)
-            } catch (error) {
-                // Output initialization errors to stderr and exit
-                const message = await errorMessage(error)
-                logger.error(message)
-                logger.error(error)
-                // Exit
-                done()
-                // Reject
-                reject(error)
+        // Publish the alarm sound.
+        tts.publish('register_sound', {
+            soundId: 'timer.alarm',
+            wavSound: alarmWav.toString('base64'),
+            wavSoundLen: alarmWav.length
+        })
+
+        dialog.flows([
+            {
+                intent: 'snips-assistant:SetTimer',
+                action: (msg, flow) => handlers.setTimer(msg, flow, hermes)
+            },
+            {
+                intent: 'snips-assistant:GetRemainingTime',
+                action: (msg, flow) => handlers.getRemainingTime(msg, flow, hermes)
+            },
+            {
+                intent: 'snips-assistant:CancelTimer',
+                action: (msg, flow) => handlers.cancelTimer(msg, flow, hermes)
+            },
+            {
+                intent: 'snips-assistant:PauseTimer',
+                action: (msg, flow) => handlers.pauseTimer(msg, flow, hermes)
+            },
+            {
+                intent: 'snips-assistant:ResumeTimer',
+                action: (msg, flow) => handlers.resumeTimer(msg, flow, hermes)
             }
-        }, hermesOptions)
-    })
+        ])
+    } catch (error) {
+        // Output initialization errors to stderr and exit
+        const message = await i18n.errorMessage(error)
+        logger.error(message)
+        logger.error(error)
+        // Exit
+        done()
+    }
 }

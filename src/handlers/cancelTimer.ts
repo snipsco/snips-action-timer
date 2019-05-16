@@ -1,20 +1,18 @@
+import { i18n, logger, message, Handler }  from 'snips-toolkit'
+import { Hermes } from 'hermes-javascript'
 import {
-    logger,
-    getSlotsByName,
     getDurationSlotValueInMs,
     hasDefaultName,
     timerNamesToSpeech,
     CustomSlot,
     DurationSlot
 } from '../utils'
-import { i18nFactory } from '../factories'
 import { store } from '../store'
 import { createTimerFallback } from './createTimerFallback'
-import { Handler } from './types'
 
-export const cancelTimerHandler: Handler = async function (msg, flow, hermes) {
-    const i18n = i18nFactory.get()
+const { getSlotsByName } = message
 
+export const cancelTimerHandler: Handler = async function (msg, flow, hermes: Hermes) {
     const nameSlot: CustomSlot = getSlotsByName(msg, 'timer_name', { onlyMostConfident: true })
     const name = nameSlot && nameSlot.value.value
     const durationSlot: DurationSlot = getSlotsByName(msg, 'duration', { onlyMostConfident: true })
@@ -40,19 +38,19 @@ export const cancelTimerHandler: Handler = async function (msg, flow, hermes) {
                 store.deleteTimer(timer.name, timer.duration)
             }
         })
-        return i18n('cancelTimer.canceled', { context: 'all' })
+        return i18n.translate('cancelTimer.canceled', { context: 'all' })
     }
 
     if(store.deleteTimer(name, duration)) {
         flow.end()
-        return i18n('cancelTimer.canceled', { name, context: name ? 'name' : null })
+        return i18n.translate('cancelTimer.canceled', { name, context: name ? 'name' : null })
     }
 
     if(timers.length === 1) {
         if(!name) {
             flow.end()
             store.deleteTimer(timers[0].name, timers[0].duration)
-            return i18n('cancelTimer.canceled', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
+            return i18n.translate('cancelTimer.canceled', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
         }
 
         flow.continue('snips-assistant:No', (_, flow) => {
@@ -61,10 +59,10 @@ export const cancelTimerHandler: Handler = async function (msg, flow, hermes) {
         flow.continue('snips-assistant:Yes', (_, flow) => {
             flow.end()
             store.deleteTimer(timers[0].name, timers[0].duration)
-            return i18n('cancelTimer.canceled', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
+            return i18n.translate('cancelTimer.canceled', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
         })
 
-        return i18n('cancelTimer.singleTimer', {
+        return i18n.translate('cancelTimer.singleTimer', {
             name: timers[0].name
         })
     } else {
@@ -76,11 +74,11 @@ export const cancelTimerHandler: Handler = async function (msg, flow, hermes) {
             const success = (name || duration) && store.deleteTimer(name, duration)
             flow.end()
             if(success)
-                return i18n('cancelTimer.canceled')
-            return i18n('notFound')
+                return i18n.translate('cancelTimer.canceled')
+            return i18n.translate('notFound')
         })
 
-        return i18n('cancelTimer.multipleTimers', {
+        return i18n.translate('cancelTimer.multipleTimers', {
             count: timers.length,
             timerNamesAnd: timerNamesToSpeech(timers),
             timerNamesOr: timerNamesToSpeech(timers, 'or')

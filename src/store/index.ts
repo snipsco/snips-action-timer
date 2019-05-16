@@ -1,4 +1,4 @@
-import { i18nFactory } from '../factories/i18nFactory'
+import { i18n } from 'snips-toolkit'
 import { Timer } from './types'
 
 const timers: Timer[] = []
@@ -57,8 +57,7 @@ function getActiveTimers() {
 }
 
 function createTimer(duration: number, name: string, onExpiration: (timer: Timer) => void) {
-    const i18n = i18nFactory.get()
-    name = name || i18n('defaultName')
+    name = name || i18n.translate('defaultName')
 
     const timer = initTimer(duration, () => {
         onExpiration(timer)

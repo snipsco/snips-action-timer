@@ -28,7 +28,7 @@ npm run dev
 # 1) Lint, transpile and test.
 npm start
 # 2) Run the action.
-node action-timer.js
+npm run launch
 ```
 
 ## Test & Demo cases
@@ -99,11 +99,11 @@ Cancel the timer with the given name and duration
 
 ## Debug
 
-In the `action-timer.js` file:
+In the `src/index.ts` file:
 
 ```js
-// Uncomment this line to print everything
-// debug.enable(name + ':*')
+// Replace 'error' with '*' to log everything
+logger.enable('error')
 ```
 
 ## Test
@@ -116,4 +116,4 @@ npm run test
 
 **In test mode, i18n output is mocked.**
 
-- **i18n**: see `src/factories/i18nFactory.ts`
+- **i18n**: mocked by `snips-toolkit`, see the [documentation](https://github.com/snipsco/snips-javascript-toolkit#i18n).
