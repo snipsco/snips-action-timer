@@ -25,7 +25,7 @@ describe('Timer app', () => {
             ]
         })
         const whichDurationMsg = await session.continue({
-            intentName: 'snips-assistant:SetTimer',
+            intentName: 'snips-assistant:ElicitTimerDuration',
             input: 'For 5 minutes',
             slots: [
                 createDurationSlot({ minutes: 5 })
