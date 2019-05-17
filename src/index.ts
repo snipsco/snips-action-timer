@@ -9,8 +9,6 @@ export * from './store'
 
 // Enables deep printing of objects.
 process.env.DEBUG_DEPTH = undefined
-// Replace 'error' with '*' to log everything
-logger.enable('error')
 
 export default async function ({
     hermes,
@@ -20,6 +18,11 @@ export default async function ({
     done: Done
 }) {
     try {
+        const { name } = require('../package.json')
+        logger.init(name)
+        // Replace 'error' with '*' to log everything
+        logger.enable('error')
+
         const alarmWav = fs.readFileSync(path.resolve(ASSETS_PATH, 'alarm.wav'))
 
         config.init()

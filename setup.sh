@@ -1,6 +1,6 @@
 #!/bin/sh
 
-npm install && npm run build
+# npm install && npm run build
 
 if [ ! -e "./config.ini" ]
 then
