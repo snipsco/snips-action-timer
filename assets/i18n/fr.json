@@ -53,7 +53,7 @@
         "announce":  "Votre minuteur est terminé.",
         "announce_name":  "Votre minuteur {{ name }} est terminé.",
         "addTime": "Ok, je rajoute {{ time }} à votre minuteur.",
-        "addTime_name": "Ok, je rajoute {{ time }} à votre minuteur{{ name }}."
+        "addTime_name": "Ok, je rajoute {{ time }} à votre minuteur {{ name }}."
     },
     "time": {
         "millisecond": "milliseconde",
