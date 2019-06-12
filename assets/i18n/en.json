@@ -68,8 +68,8 @@
         "day_plural": "days"
     },
     "joins": {
-        "andSomething": "and {{- something }}",
-        "orSomething": "or {{- something }}"
+        "and": "and {{- something }}",
+        "or": "or {{- something }}"
     },
     "numbers": {
         "1": "one",
