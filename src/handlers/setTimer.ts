@@ -47,9 +47,8 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
                     context: hasDefaultName(timer.name) ? null : 'name'
                 }),
                 intentFilter: [
-                    'snips-assistant:Stop',
-                    'snips-assistant:Silence',
-                    'snips-assistant:AddTime'
+                    'snips-assistant:StopSilence',
+                    'snips-assistant:ElicitSnooze'
                 ],
                 canBeEnqueued: true,
                 sendIntentNotRecognized: true
@@ -59,7 +58,7 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
         })
 
         const sessionHandler = dialogueRoundWrapper((_: IntentMessage | IntentNotRecognizedMessage, flow) => {
-            flow.continue('snips-assistant:AddTime', (msg, flow) => {
+            flow.continue('snips-assistant:ElicitSnooze', (msg, flow) => {
                 // Create the timer again with the updated duration
                 const durationSlot: DurationSlot = getSlotsByName(msg, 'duration', { onlyMostConfident: true })
                 const duration = getDurationSlotValueInMs(durationSlot)
