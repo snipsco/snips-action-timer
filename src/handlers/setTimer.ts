@@ -47,11 +47,7 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
                 }),
                 intentFilter: [
                     'snips-assistant:StopSilence',
-<<<<<<< HEAD
                     'snips-assistant:ElicitSnooze'
-=======
-                    'snips-assistant:AddTime'
->>>>>>> change intent name to StopSilence
                 ],
                 canBeEnqueued: true,
                 sendIntentNotRecognized: true
