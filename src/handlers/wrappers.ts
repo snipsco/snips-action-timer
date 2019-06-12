@@ -43,10 +43,7 @@ export const dialogueRoundWrapper = <MessageType extends HandlerMessages = Inten
     handler: Handler<MessageType>
 ): Handler<MessageType> => (
     async (message, flow, ...args) => {
-        flow.continue('snips-assistant:Stop', handlerWrapper(() => {
-            flow.end()
-        }))
-        flow.continue('snips-assistant:Silence', handlerWrapper(() => {
+        flow.continue('snips-assistant:StopSilence', handlerWrapper(() => {
             flow.end()
         }))
         flow.continue('snips-assistant:Cancel', handlerWrapper(() => {

@@ -11,10 +11,7 @@ export const createTimerFallback = function(flow: FlowContinuation, hermes: Herm
     flow.continue('snips-assistant:Cancel', (_, flow) => {
         flow.end()
     })
-    flow.continue('snips-assistant:Stop', (_, flow) => {
-        flow.end()
-    })
-    flow.continue('snips-assistant:Silence', (_, flow) => {
+    flow.continue('snips-assistant:StopSilence', (_, flow) => {
         flow.end()
     })
     flow.continue('snips-assistant:Yes', (_, flow) => {
