@@ -4,7 +4,14 @@ import {
     createDurationSlot,
     createAllTimersSlot
 } from './utils'
-import { store } from '../dist'
+import { store as storeShape } from '../src/store'
+import { store as nonSandboxedStore } from '../dist'
+
+type Store = typeof storeShape
+const store: Store = nonSandboxedStore
+SnipsToolkit.mock.globals(globals => {
+    globals.store = store
+})
 
 const { Session, Tools: { getMessageKey, getMessageOptions } } = Test
 

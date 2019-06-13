@@ -122,3 +122,8 @@ export const store = {
     pauseTimer,
     resumeTimer
 }
+
+// Expose store for tests
+if(global['store']) {
+    Object.assign(global['store'], store)
+}
