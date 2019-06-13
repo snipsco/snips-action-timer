@@ -1,7 +1,7 @@
 dependencies:
   dayjs: 1.8.14
   hermes-javascript: 0.3.11
-  snips-toolkit: 0.1.5_typescript@3.5.1
+  snips-toolkit: 1.0.0_typescript@3.5.1
   uuid: 3.3.2
 devDependencies:
   '@types/jest': 24.0.14
@@ -5809,7 +5809,7 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-FtyOnWN/wCHTVXOMwvSv26d+ko5vWlIDD6zoUJ7LW8vh+ZBC8QdljveRP+crNrtBwioEUWy/4dMtbBjA4ioNlg==
-  /snips-toolkit/0.1.5_typescript@3.5.1:
+  /snips-toolkit/1.0.0_typescript@3.5.1:
     dependencies:
       '@babel/core': 7.4.5
       '@babel/plugin-proposal-class-properties': 7.4.4_@babel+core@7.4.5
@@ -5844,7 +5844,7 @@ packages:
     peerDependencies:
       typescript: '*'
     resolution:
-      integrity: sha512-7jdhI90hAaGLWnO2qUo66QjHg5aLa5BzCczZf5T81sazKbt2stMQg2UV3dcb7NBVHvun8hGtC+2YRcIvYX96QQ==
+      integrity: sha512-WNxnNaAqKVpFKAC2POqW7X9RMTGWHevt5cT9CorGlZFTj0p7gRxhgGz0SRN9eK7iImmSAKtT5juhzsbFamzLNQ==
   /source-list-map/2.0.1:
     dev: false
     resolution:
@@ -6897,6 +6897,6 @@ specifiers:
   eslint: ^5.15.3
   eslint-plugin-jest: ^22.4.1
   hermes-javascript: ^0.3.9
-  snips-toolkit: ^0.1.5
+  snips-toolkit: ^1.0.0
   typescript: ^3.3.4000
   uuid: ^3.3.2
