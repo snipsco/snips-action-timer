@@ -1,5 +1,6 @@
 # Project
 config.ini
+.vscode
 
 # Logs
 logs
@@ -40,7 +41,8 @@ node_modules/
 jspm_packages/
 
 # TypeScript dist
-dist/
+#dist/
+/dist/*.js.map
 
 # TypeScript v1 declaration files
 typings/
