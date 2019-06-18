@@ -1,6 +1,8 @@
 # snips-action-timer
 
-Snips action code for the Timer app
+### Snips action code for the Timer app
+
+[![Build Status](https://travis-ci.org/snipsco/snips-action-timer.svg?branch=master)](https://travis-ci.org/snipsco/snips-action-timer)
 
 ## Setup
 
