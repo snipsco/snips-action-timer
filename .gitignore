@@ -3,3 +3,8 @@ config.ini
 .vscode
 /dist
 .pnpm-debug.log
+
+# lockfiles
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
