@@ -1,4 +1,4 @@
-import { i18n, logger, message, Handler }  from 'snips-toolkit'
+import { i18n, logger, message, Handler, config }  from 'snips-toolkit'
 import { Hermes } from 'hermes-javascript'
 import {
     getDurationSlotValueInMs,
@@ -51,10 +51,10 @@ export const pauseTimerHandler: Handler = async function (msg, flow, hermes: Her
             return i18n.translate('pauseTimer.paused', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
         }
 
-        flow.continue('snips-assistant:No', (_, flow) => {
+        flow.continue(`${ config.get().assistantPrefix }:No`, (_, flow) => {
             flow.end()
         })
-        flow.continue('snips-assistant:Yes', (_, flow) => {
+        flow.continue(`${ config.get().assistantPrefix }:Yes`, (_, flow) => {
             flow.end()
             timers[0].pause()
             return i18n.translate('pauseTimer.paused', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
@@ -64,7 +64,7 @@ export const pauseTimerHandler: Handler = async function (msg, flow, hermes: Her
             name: timers[0].name
         })
     } else {
-        flow.continue('snips-assistant:PauseTimer', (msg, flow) => {
+        flow.continue(`${ config.get().assistantPrefix }:PauseTimer`, (msg, flow) => {
             const nameSlot: CustomSlot = message.getSlotsByName(msg, 'timer_name', { onlyMostConfident: true })
             const name = nameSlot && nameSlot.value.value
             const durationSlot: DurationSlot = message.getSlotsByName(msg, 'duration', { onlyMostConfident: true })

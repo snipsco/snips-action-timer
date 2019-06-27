@@ -1,4 +1,4 @@
-import { i18n, logger, message, Handler }  from 'snips-toolkit'
+import { i18n, logger, message, Handler, config }  from 'snips-toolkit'
 import { Hermes } from 'hermes-javascript'
 import {
     getDurationSlotValueInMs,
@@ -53,10 +53,10 @@ export const cancelTimerHandler: Handler = async function (msg, flow, hermes: He
             return i18n.translate('cancelTimer.canceled', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
         }
 
-        flow.continue('snips-assistant:No', (_, flow) => {
+        flow.continue(`${ config.get().assistantPrefix }:No`, (_, flow) => {
             flow.end()
         })
-        flow.continue('snips-assistant:Yes', (_, flow) => {
+        flow.continue(`${ config.get().assistantPrefix }:Yes`, (_, flow) => {
             flow.end()
             store.deleteTimer(timers[0].name, timers[0].duration)
             return i18n.translate('cancelTimer.canceled', { name: timers[0].name, context: hasDefaultName(timers[0].name) ? null : 'name' })
@@ -66,7 +66,7 @@ export const cancelTimerHandler: Handler = async function (msg, flow, hermes: He
             name: timers[0].name
         })
     } else {
-        flow.continue('snips-assistant:CancelTimer', (msg, flow) => {
+        flow.continue(`${ config.get().assistantPrefix }:CancelTimer`, (msg, flow) => {
             const nameSlot: CustomSlot = getSlotsByName(msg, 'timer_name', { onlyMostConfident: true })
             const name = nameSlot && nameSlot.value.value
             const durationSlot: DurationSlot = getSlotsByName(msg, 'duration', { onlyMostConfident: true })

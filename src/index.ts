@@ -40,23 +40,23 @@ export default async function ({
 
         dialog.flows([
             {
-                intent: 'snips-assistant:SetTimer',
+                intent: `${ config.get().assistantPrefix }:SetTimer`,
                 action: (msg, flow) => handlers.setTimer(msg, flow, hermes)
             },
             {
-                intent: 'snips-assistant:GetRemainingTime',
+                intent: `${ config.get().assistantPrefix }:GetRemainingTime`,
                 action: (msg, flow) => handlers.getRemainingTime(msg, flow, hermes)
             },
             {
-                intent: 'snips-assistant:CancelTimer',
+                intent: `${ config.get().assistantPrefix }:CancelTimer`,
                 action: (msg, flow) => handlers.cancelTimer(msg, flow, hermes)
             },
             {
-                intent: 'snips-assistant:PauseTimer',
+                intent: `${ config.get().assistantPrefix }:PauseTimer`,
                 action: (msg, flow) => handlers.pauseTimer(msg, flow, hermes)
             },
             {
-                intent: 'snips-assistant:ResumeTimer',
+                intent: `${ config.get().assistantPrefix }:ResumeTimer`,
                 action: (msg, flow) => handlers.resumeTimer(msg, flow, hermes)
             }
         ])

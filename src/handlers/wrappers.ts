@@ -3,11 +3,7 @@ import {
     INTENT_FILTER_THRESHOLD,
     ASR_THRESHOLD
 } from '../constants'
-import {
-    Handler,
-    handler,
-    HandlerMessages,
-} from 'snips-toolkit'
+import { Handler, handler, HandlerMessages, config } from 'snips-toolkit'
 import { IntentMessage } from 'hermes-javascript/types'
 
 // Wrap handlers to gracefully capture errors
@@ -26,10 +22,10 @@ export const dialogueRoundWrapper = <MessageType extends HandlerMessages = Inten
     handler: Handler<MessageType>
 ): Handler<MessageType> => (
     async (message, flow, ...args) => {
-        flow.continue('snips-assistant:StopSilence', handlerWrapper(() => {
+        flow.continue(`${ config.get().assistantPrefix }:StopSilence`, handlerWrapper(() => {
             flow.end()
         }))
-        flow.continue('snips-assistant:Cancel', handlerWrapper(() => {
+        flow.continue(`${ config.get().assistantPrefix }:Cancel`, handlerWrapper(() => {
             flow.end()
         }))
         return handlerWrapper(handler, { nested: true })(message, flow, ...args)

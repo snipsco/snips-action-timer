@@ -2,7 +2,7 @@
 import uuid from 'uuid/v4'
 import { Hermes, IntentNotRecognizedMessage, IntentMessage } from 'hermes-javascript'
 import { Enums } from 'hermes-javascript/types'
-import { Handler, i18n, message, logger } from 'snips-toolkit'
+import { Handler, i18n, message, logger, config } from 'snips-toolkit'
 import { getDurationSlotValueInMs, CustomSlot, DurationSlot } from '../utils'
 import { store } from '../store'
 import { durationToSpeech, hasDefaultName } from '../utils/translation'
@@ -25,7 +25,7 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
 
     if(duration === null || duration === undefined) {
         // Duration slot was not provided - loop once to get it
-        flow.continue('snips-assistant:ElicitTimerDuration', dialogueRoundWrapper((msg, flow) =>
+        flow.continue(`${ config.get().assistantPrefix }:ElicitTimerDuration`, dialogueRoundWrapper((msg, flow) =>
             setTimerHandler(msg, flow, hermes, { providedName: name })
         ))
         return i18n.translate('setTimer.askDuration')
@@ -46,8 +46,8 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
                     context: hasDefaultName(timer.name) ? null : 'name'
                 }),
                 intentFilter: [
-                    'snips-assistant:StopSilence',
-                    'snips-assistant:ElicitSnooze'
+                    `${ config.get().assistantPrefix }:StopSilence`,
+                    `${ config.get().assistantPrefix }:ElicitSnooze`
                 ],
                 canBeEnqueued: true,
                 sendIntentNotRecognized: true
@@ -57,7 +57,7 @@ export const setTimerHandler: Handler = async function (msg, flow, hermes: Herme
         })
 
         const sessionHandler = dialogueRoundWrapper((_: IntentMessage | IntentNotRecognizedMessage, flow) => {
-            flow.continue('snips-assistant:ElicitSnooze', (msg, flow) => {
+            flow.continue(`${ config.get().assistantPrefix }:ElicitSnooze`, (msg, flow) => {
                 // Create the timer again with the updated duration
                 const durationSlot: DurationSlot = message.getSlotsByName(msg, 'duration', { onlyMostConfident: true })
                 const duration = getDurationSlotValueInMs(durationSlot)
